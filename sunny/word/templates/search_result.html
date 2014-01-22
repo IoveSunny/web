@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Search Result</title>
+	</head>
+	<body>
+		<div id="word">
+			{% for error in errors %}
+			</p>{{error}}</p>
+			{% endfor %}
+
+			{% if not word %}
+				<p>Word doesnot exist!!!</p>
+			{% else %}
+				<p>{{word.Word}}</p>
+				<p>Last use time: {{word.last_time}}</p>
+				<p>Used times: {{word.use_times}}</p>
+				<p>{{word.Description}}</p>
+				<p>{{word.Phonetic}}</p>
+
+				{% if word.Root %}
+					<p><a href="../word_root/">word.Root</a></p>
+				{% endif %}
+
+				{% if word.Sentence %}
+					<p><a href="../sentence/">For example</a></p>
+				{% endif %}
+			{% endif%}
+		</div>
+	</body>
+
+</html>
+

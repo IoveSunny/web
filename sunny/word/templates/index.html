@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Index Page</title>
+	</head>
+	<body>
+		<form action="/word/search/" method="get">
+			{% for error in errors %}
+			</p>{{error}}</p>
+			{% empty %}
+
+			{% endfor %}
+			
+
+			<div id="word_right">
+			<p><input type=="text" name="search_word" value="Please enter search word" /></p>
+			</p><input type="submit" name="sub" value="Search" /></p>
+			</div>
+			<div id="word_often">
+				{% for i in word_times %}
+				</p>{{forloop.counter}}.<a href="../search/?search_word={{i}}">{{i}}</a></p>
+				{% endfor %}
+			</div>
+		</form>
+	</body>
+</html>
+

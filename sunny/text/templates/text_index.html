@@ -2,15 +2,18 @@
 
 {% block body%}
 	<h1>Index Page</h1>
-	
+	<form action action="http://127.0.0.1:8000/word/search/" method="get">
+		<input type="text" name="search_word" /> * Please Enter a Word.<br />
+		<input type="submit" name="submit" values="Search" />
+	</form>
 	{% for text in texts %} 
 		<p>{{text.book.name.title }}</p>
 		<p>{{text.book.author}}</p>
 		<p>{{text.unit.unit.capitalize }}</p>
 		<p>{{text.unit.text_title.title }}</p>
 		<p>{{text.unit.text_author}}</p>
-		<p><h2>{{text.para}}</h2></p>
-		<p>{{text.para_text.lstrip.capitalize }}</p>
+		<p>{{text.para}}</p>
+		<p>{{text.para_text}}</p>
 		<p>{{text.para_translation}}</p>
 		<p>{{text.add_time}}</p>
 		<hr>

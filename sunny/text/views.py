@@ -17,7 +17,7 @@ def AddText(req):
 		text_title	= req.POST['text_title'].strip().lower()
 		text_author	= req.POST['text_author'].strip()
 		paragraph	= req.POST['paragraph'].strip().lower()
-		print "Para ", paragraph
+		# print "Para ", paragraph
 		text_text	= req.POST['text_text'].strip()
 		text_translation = req.POST['text_translation'].strip()
 		errors = {
@@ -50,13 +50,13 @@ def AddText(req):
 
 		flag = 0
 		for key, value in errors.items():
-			print key, value
+			# print key, value
 			if value:
 				flag = 1
 				break
 
-		print errors
-		print flag
+		# print errors
+		# print flag
 		if flag:
 			info = {
 				'book_title'	: book_title,

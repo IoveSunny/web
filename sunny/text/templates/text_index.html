@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body%}
+	<h1>Index Page</h1>
+	
+	{% for text in texts %} 
+		<p>{{text.book.name.title }}</p>
+		<p>{{text.book.author}}</p>
+		<p>{{text.unit.unit.capitalize }}</p>
+		<p>{{text.unit.text_title.title }}</p>
+		<p>{{text.unit.text_author}}</p>
+		<p>{{text.unit.paragraph.para}}</p>
+		<p>{{text.unit.paragraph.para_text.lstrip.capitalize }}</p>
+		<p>{{text.unit.paragraph.para_translation}}</p>
+		<p>{{text.unit.paragraph.add_time}}</p>
+		<hr>
+	{% endfor %}
+
+{% endblock %}

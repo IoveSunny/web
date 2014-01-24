@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Add Text Paragraph{% endblock %}
+
+{% block body%} 
+
+	{% if not errors %}
+
+	<form action="" method="post">
+	<center>
+	<table>
+		<tr>
+			<th scope="row">书名</th><td><input type="text" name="book_title" required="required" /></td>
+		</tr>
+		<tr>
+			<th scope="row">作者</th><td><input type="text" name="book_author" required="required" /></td>
+		</tr>
+		<tr>
+			<th scope="row">单元</th><td><input type="text" name="unit" required="required" /></td>
+		</tr>
+		<tr>
+			<th scope="row">文章标题</th><td><input type="text" name="text_title" required="required" /></td>
+		</tr>
+		<tr>
+			<th scope="row">文章作者</th><td><input type="text" name="text_author" required="required" /></td>
+		</tr>
+		<tr>
+			<th scope="row">段落序号</th><td><input type="text" name="paragraph" required="required" /></td>
+		</tr>
+		<tr>
+			<th scope="row">原文</th><td><textarea rows="10" cols="100" name="text_text" required="required"></textarea></td>
+		</tr>
+		<tr>
+			<th scope="row">翻译</th><td><textarea rows="10" cols="100" name="text_translation" required="required" ></textarea></td>
+		</tr>
+	</table>
+	<input type="submit" name="submit" value="Submit"/>
+	</center>
+	</form>
+
+	{% else %}
+	
+	<form action="" method="post">
+	<center>
+	<table>
+		<tr>
+			<th scope="row">书名</th><td><input type="text" name="book_title" value="{{info.book_title}}" /><font color="red"> {{errors.book_title}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">作者</th><td><input type="text" name="book_author" value="{{info.book_author}}" /><font color="red"> {{errors.book_author}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">单元</th><td><input type="text" name="unit" value="{{info.unit}}" /><font color="red"> {{errors.unit}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">文章标题</th><td><input type="text" name="text_title" value="{{info.text_title}}" /><font color="red">{{errors.text_title}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">文章作者</th><td><input type="text" name="text_author" value="{{info.text_author}}" /><font color="red"> {{errors.text_author}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">段落序号</th><td><input type="text" name="paragraph" value="{{info.paragraph}}" /><font color="red"> {{errors.paragraph}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">原文</th><td><textarea rows="10" cols="100" name="text_text" >{{info.text_text}}</textarea><font color="red"> {{errors.text_text}}</font></td>
+		</tr>
+		<tr>
+			<th scope="row">翻译</th><td><textarea rows="10" cols="100" name="text_translation">{{info.text_translation}}</textarea><font color="red"> {{errors.text_translation}}</font></td>
+		</tr>
+	</table>
+	<input type="submit" name="submit" value="Submit"/>
+	</center>
+	</form>
+	
+	{% endif%}
+
+
+{% endblock %}

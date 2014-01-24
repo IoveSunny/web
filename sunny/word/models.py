@@ -5,13 +5,15 @@ class Version(models.Model):
 
 
 class Word(models.Model):
-	ad_time = models.CharField(max_length=255)
-	last_time = models.CharField(max_length=255)
-	use_times = models.IntegerField()
-	Word = models.CharField(max_length=255)
-	Description = models.CharField(max_length=1001)
-	Phonetic = models.CharField(max_length=1001)
-	Root = models.CharField(max_length=1001)
-	Sentence = models.CharField(max_length=1000)
+	ad_time 		= models.CharField(max_length=255)
+	last_time 		= models.CharField(max_length=255)
+	use_times 		= models.IntegerField()
+	Word 			= models.CharField(max_length=255)
+	Description 	= models.CharField(max_length=1001)
+	Phonetic 		= models.CharField(max_length=1001)
+	Root 			= models.CharField(max_length=1001)
+	Sentence 		= models.CharField(max_length=1000)
 
+	def __unicode__(self):
+		return self.Word
 

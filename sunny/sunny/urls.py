@@ -22,6 +22,9 @@ urlpatterns = patterns('',
 	url(r'^word/word_root/$', 'word.views.word_root'),
 
 	# css
-	url(r'^image/(/d).jpg/$',{})
+	url(r'^image/(/d).jpg/$',{}),
 	# url(r'^image/(+/d).jpg$', 'django.views.static.serve', {'document_root':/srv/ftp/upload/image}),
+
+	url(r'^text/index/$', 'text.views.Index'),
+	url(r'^text/addtext/$', 'text.views.AddText'),
 )

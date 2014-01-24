@@ -1,11 +1,11 @@
 #coding:utf-8
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from text.models import Book, Paragraph, Unit, TextTranslation
+from text.models import Book, Paragraph, Unit
 from time import ctime
 
 def Index(req):
-	texts = TextTranslation.objects.all()
+	texts = Paragraph.objects.order_by('para')
 	return render_to_response('text_index.html', {'texts':texts})
 
 def AddText(req):
@@ -17,8 +17,9 @@ def AddText(req):
 		text_title	= req.POST['text_title'].strip().lower()
 		text_author	= req.POST['text_author'].strip()
 		paragraph	= req.POST['paragraph'].strip().lower()
-		text_text	= req.POST['text_text'].strip().lower()
-		text_translation = req.POST['text_translation'].strip().lower()
+		print "Para ", paragraph
+		text_text	= req.POST['text_text'].strip()
+		text_translation = req.POST['text_translation'].strip()
 		errors = {
 				'book_title'	: '',
 				'book_author'	: '',
@@ -69,23 +70,55 @@ def AddText(req):
 			}
 			return render_to_response('text_add.html', {'info':info, 'errors':errors})
 		else:
-			book = Book.objects.create(name=book_title, author=book_author)
-			para = Paragraph.objects.create(
-				para		= paragraph,
-				para_text	= text_text,
-				para_translation = text_translation,
-				add_time	= ctime()
-			) 
-			unit = Unit.objects.create(
-				unit		= unit,
-				text_title	= text_title,
-				text_author = text_author,
-				paragraph	= para,
-			)
-			text	= TextTranslation.objects.create(
-				book	= book,
-				unit	= unit,
-			)
+			try:
+				book = Book.objects.get(name=book_title, author=book_author)
+			except Book.DoesNotExist, e:
+				book = Book.objects.create(name=book_title, author=book_author)
+			
+			try:
+				unit = Unit.objects.get(
+					unit		= unit,
+					text_title	= text_title,
+					text_author = text_author,
+					# paragraph	= para,
+				)
+			except Unit.DoesNotExist, e:
+				unit = Unit.objects.create(
+					book		= book,
+					unit		= unit,
+					text_title	= text_title,
+					text_author = text_author,
+				)
+			
+			try:
+				para = Paragraph.objects.get(
+					para = paragraph,
+					# para_text	= text_text,
+					# para_translation = text_translation,
+					# add_time	= ctime()
+				) 
+			except Paragraph.DoesNotExist, e:
+				para = Paragraph.objects.create(
+					book = book,
+					unit = unit,
+					para		= paragraph,
+					para_text	= text_text,
+					para_translation = text_translation,
+					add_time	= ctime()
+				) 
+				
+				
+			#try:
+			#	text = TextTranslation.objects.create(
+			#		book	= book,
+			#		unit	= unit,
+			#	)
+			#except TextTranslation.DoesNotExist, e:
+			#	text = TextTranslation.objects.create(
+			#		book	= book,
+			#		unit	= unit,
+			#	)
+			
 
 			return HttpResponseRedirect('../index')
 	else:

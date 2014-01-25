@@ -2,8 +2,8 @@
 
 {% block body%}
 	<h1>Index Page</h1>
-	<form action action="http://127.0.0.1:8000/word/search/" method="get">
-		<input type="text" name="search_word" /> * Please Enter a Word.<br />
+	<form action="/word/search" method="get">
+		<input type="text" name="search_word" required="required" placeholder="Please Enter a Word" /><br />
 		<input type="submit" name="submit" values="Search" />
 	</form>
 	{% for text in texts %} 

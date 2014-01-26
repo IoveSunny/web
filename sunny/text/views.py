@@ -1,11 +1,11 @@
 #coding:utf-8
 from django.shortcuts import render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from text.models import Book, Paragraph, Unit
 from time import ctime
 
 def Index(req):
-	texts = Paragraph.objects.order_by('para')
+	texts = Paragraph.objects.order_by('-add_time', '-unit')
 	return render_to_response('text_index.html', {'texts':texts})
 
 def AddText(req):
@@ -93,6 +93,8 @@ def AddText(req):
 			try:
 				para = Paragraph.objects.get(
 					para = paragraph,
+					book = book,
+					unit = unit,
 					# para_text	= text_text,
 					# para_translation = text_translation,
 					# add_time	= ctime()
@@ -124,5 +126,34 @@ def AddText(req):
 	else:
 		return render_to_response('text_add.html', {"errors":errors})
 
-def SearchText(req):
-	pass
+# Update data from datebase/tables;
+def UpdateText(req, id):
+	if req.method == "POST":
+		# print req.POST
+		para = Paragraph.objects.get(id=id)
+		unit = Unit.objects.get(id=para.unit_id)
+		book = Book.objects.get(id=para.book_id)
+		
+
+		book.name		= req.POST['book_title'].strip().lower()
+		book.author		= req.POST['book_author'].strip()
+		book.save()
+
+		unit.unit		= req.POST['unit'].strip().lower()
+		unit.text_title	= req.POST['text_title'].strip().lower()
+		unit.text_author= req.POST['text_author'].strip()
+		unit.save()
+
+		para.para			= req.POST['paragraph'].strip().lower()
+		para.para_text		= req.POST['text_text'].strip()
+		para.para_translation= req.POST['text_translation'].strip()
+		para.save()
+		
+		return HttpResponseRedirect("/text/index")
+	else:
+		try:
+			para = Paragraph.objects.get(id=id)
+		except Paragraph.DoesNotExist,e:
+			raise Http404
+		return render_to_response("text_update.html", {"text":para})
+

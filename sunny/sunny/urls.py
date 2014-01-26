@@ -27,4 +27,5 @@ urlpatterns = patterns('',
 
 	url(r'^text/index/$', 'text.views.Index'),
 	url(r'^text/addtext/$', 'text.views.AddText'),
+	url(r'^text/updatetext/(?P<id>\d*)$', 'text.views.UpdateText'),
 )

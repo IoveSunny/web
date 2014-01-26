@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title%}Modify Text{% endblock%}
+
+{% block body %}
+	
+	<div>
+		<fieldset>
+		<legend>Update Text</legend>
+		<label>
+		<form action="" method="post">
+			<input type="text" name="book_title" value="{{text.book.name}}" required="required"/><br />
+			<input type="text" name="book_author" value="{{text.book.author}}" required="required" /><br />
+			<input type="text" name="unit" value="{{text.unit.unit.capitalize}}" required="required" /><br />
+			<input type="text" name="text_title" value="{{text.unit.text_title}}" required+"required" /><br />
+			<input type="text" name="text_author" value="{{text.unit.text_author}}" required="required" /><br/>
+			<input type="text" name="paragraph" value="{{text.para}}" required="required" /><br />
+			<textarea name="text_text" required="required" rows="10" cols="100" >{{text.para_text}}</textarea><br />
+			<textarea name="text_translation" required="required" rows="10" cols="100" >{{text.para_translation}}</textarea><br />
+			<input type="submit" name="submit" value="Update" />
+		</form>
+		</label>
+		</fieldset>
+	<div>
+
+{% endblock %}

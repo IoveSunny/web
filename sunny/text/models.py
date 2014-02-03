@@ -7,6 +7,9 @@ class Book(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	class Admin:
+		pass
+
 class Unit(models.Model):
 	book		= models.ForeignKey(Book)
 	unit 		= models.CharField(max_length=4)
@@ -15,6 +18,9 @@ class Unit(models.Model):
 
 	def __unicode__(self):
 		return self.unit
+	
+	class Admin:
+		pass
 
 class Paragraph(models.Model):
 	book			= models.ForeignKey(Book)
@@ -27,6 +33,8 @@ class Paragraph(models.Model):
 	def __unicode__(self):
 		return self.para
 
+	class Admin:
+		pass
 
 #class TextTranslation(models.Model):
 #	name		= "TextTranslation"

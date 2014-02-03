@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block body %} 
+	{% if mode in "author" or mode in "paragraph"%}
+			{% for text in texts %}
+			<fieldset>
+			<div>
+				<p>{{text.unit.text_title.title}}</p>
+				<p>{{text.unit.text_author.title}}</p>
+				<p>{{text.para}}</><a href="../updatetext/{{text.id}}"> 编辑 </a>|<a href="../deletetext/{{text.id}}"> Del </a></p>
+				<p>{{text.para_text}}</p>
+				<p>{{text.para_translation}}</p>
+				<p>{{text.add_time}}</p>
+			</div>
+			</fieldset>
+			<hr>
+			{% empty %}
+				<div><h1>You Search Nothing.</h1></div>
+			{% endfor%}
+	{% else %}
+			<!-- <div><p>{{texts.0.unit.text_title}}</p></div> -->
+			{% for text in texts %}
+			<fieldset>
+				<legend><h1>{{text.unit.text_title.title}}  {{text.unit.text_author.title}}</h1></legend>
+			<div>
+				<p>{{text.para}}</><a href="../updatetext/{{text.id}}">编辑</a>|<a href="../deletetext/{{text.id}}">Del</a></p>
+				<p>{{text.para_text}}</p>
+				<p>{{text.para_translation}}</p>
+				<p>{{text.add_time}}</p>
+			</div>
+			</fieldset>
+			<hr>
+			{% empty %}
+				<div><h1>You Search Nothing.</h1></div>
+			{% endfor%}
+	{% endif %}
+
+
+{% endblock %}

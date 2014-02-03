@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block body_head %} {% endblock %}
+
+{% block body %}
+	<div>
+		<fieldset>
+		<legend>{% block fieldset_legend %}{% endblock %}</legend>
+		<label>
+		<form action="" method="post">
+		<table>
+			<tr>
+				<th scope="row"></th><td><input type="text" name="book_title" value="{{text.book.name}}" required="required"/><br />
+			</tr>
+			<tr>
+				<th scope="row">Book Author</th><td><input type="text" name="book_author" value="{{text.book.author}}" required="required" /></td>
+			</tr>
+			<tr>
+				<th scope="row">Unit</th><td><input type="text" name="unit" value="{{text.unit.unit.capitalize}}" required="required" /></td>
+			</tr>
+			<tr>
+				<th scope="row">Text Title</th><td><input type="text" name="text_title" value="{{text.unit.text_title}}" required+"required" /></td>
+			</tr>
+			<tr>
+				<th scope="row">Text Author</th><td><input type="text" name="text_author" value="{{text.unit.text_author}}" required="required" /></td>
+			</tr>
+			<tr>
+				<th scope="row"></th>Paragraph<td><input type="text" name="paragraph" value="{{text.para}}" required="required" /></td>
+			</tr>
+			<tr>
+			<th scope="row">Text</th><td><textarea name="text_text" required="required" rows="10" cols="100" >{{text.para_text}}</textarea></td>
+			</tr>
+			<tr>
+			<th scope="row">Translation</th><td><textarea name="text_translation" required="required" rows="10" cols="100" >{{text.para_translation}}</textarea></td>
+			</tr>
+			<tr>
+			<th></th><td><input type="submit" name="submit" value="Update" /></td>
+			</tr>
+		</table>
+		</form>
+		</label>
+		</fieldset>
+	<div>
+
+{% endblock %}
+
+{% block body_foot %}{% endblock %}

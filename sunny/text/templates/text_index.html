@@ -2,11 +2,36 @@
 
 {% block body%}
 	<h1>Index Page</h1>
+	<!-- <div>
+		{% load staticfiles %}
+		<img src="{% static "img/2.jpg" %}">
+	</div>
+	-->
+
 	<div>
 	<form action="/word/search" method="get">
+		<strong>Search Word</strong><br />
 		<input type="text" name="search_word" required="required" placeholder="Please Enter a Word" /><br />
 		<input type="submit" name="submit" values="Search" />
+		{% load staticfiles %}
+		<link href="{% static "css/test.css" %}" type="text/css" rel="stylesheet">
 	</form>
+	</div>
+
+	<div>
+	<label>
+	<form action="../searchtext" method="get">
+		<strong>Search Text</strong><br/>
+		{% if search_error %}
+		<font color="red">* {{search_error}}</font><br />
+		{% endif %}
+		<input type="search" name="search" placeholder="Title or Para or Author" /><br />
+		<input type="radio" name="choice" value="title" checked="checked"/>Title
+		<input type="radio" name="choice" value="paragraph" />Paragraph
+		<input type="radio" name="choice" value="author" />Author<br />
+		<input type="submit" name="submit" value="Submit" /><br />
+	</form>
+	</label>
 	</div>
 
 	<div>
@@ -17,9 +42,9 @@
 		<p>{{text.unit.unit.capitalize }}</p>
 		<p>{{text.unit.text_title.title }}</p>
 		<p>{{text.unit.text_author}}</p>
-		<p>{{text.para}} <a href="../updatetext/{{text.id}}">编辑</a></p>
-		<p>{{text.para_text}}</p>
-		<p>{{text.para_translation}}</p>
+		<p>{{text.para}} <!-- <a href="../updatetext/{{text.id}}">编辑</a> --></p>
+		<p>{{text.para_text|escape}}</p>
+		<p>{{text.para_translation|escape}}</p>
 		<p>{{text.add_time}}</p>
 		<hr>
 	{% endfor %}

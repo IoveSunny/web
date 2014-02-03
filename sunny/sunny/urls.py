@@ -21,11 +21,19 @@ urlpatterns = patterns('',
 	url(r'^word/sentence/$', 'word.views.sentence'),
 	url(r'^word/word_root/$', 'word.views.word_root'),
 
-	# css
 	url(r'^image/(/d).jpg/$',{}),
 	# url(r'^image/(+/d).jpg$', 'django.views.static.serve', {'document_root':/srv/ftp/upload/image}),
 
 	url(r'^text/index/$', 'text.views.Index'),
+	# Add
 	url(r'^text/addtext/$', 'text.views.AddText'),
-	url(r'^text/updatetext/(?P<id>\d*)$', 'text.views.UpdateText'),
+	# Update
+	url(r'^text/updatetext/(?P<id>\d+)/$', 'text.views.UpdateText'),
+	# Delete
+	url(r'^text/deletetext/(?P<id>\d+)/$', 'text.views.DeleteParagraph'),
+	# Search
+	url(r'^text/searchtext/', 'text.views.Search'),
+
+	# css
+	url(r'^css/(?P<id>\d+)/$', 'text.views.testcss'),
 )

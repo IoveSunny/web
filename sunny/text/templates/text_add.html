@@ -5,9 +5,10 @@
 {% block body%} 
 
 	{% if not errors %}
-
+	<fieldset>
+	<legend> Add Text Paragraph</legend>
+	<label>
 	<form action="" method="post">
-	<center>
 	<table>
 		<tr>
 			<th scope="row">书名</th><td><input type="text" name="book_title" required="required" /></td>
@@ -37,11 +38,15 @@
 	<input type="submit" name="submit" value="Submit"/>
 	</center>
 	</form>
+	</label>
+	</fieldset>
 
 	{% else %}
 	
+	<fieldset>
+	<label>
+	<legend>Add Text Paragraph</legend>
 	<form action="" method="post">
-	<center>
 	<table>
 		<tr>
 			<th scope="row">书名</th><td><input type="text" name="book_title" value="{{info.book_title}}" /><font color="red"> {{errors.book_title}}</font></td>
@@ -69,10 +74,12 @@
 		</tr>
 	</table>
 	<input type="submit" name="submit" value="Submit"/>
-	</center>
 	</form>
+	</label>
+	<fieldset>
 	
 	{% endif%}
 
 
 {% endblock %}
+

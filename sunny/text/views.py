@@ -4,6 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from text.models import Book, Paragraph, Unit
 from time import ctime
 
+def testcss(req, id):
+	return render_to_response("test/testcss"+id+".html", {})
+
 def Index(req):
 	texts = Paragraph.objects.order_by('-add_time', '-unit')
 	return render_to_response('text_index.html', {'texts':texts})
@@ -12,10 +15,10 @@ def AddText(req):
 	errors = dict()
 	if req.method == "POST":
 		book_title 	= req.POST['book_title'].strip().lower()
-		book_author	= req.POST['book_author'].strip()
+		book_author	= req.POST['book_author'].strip().lower()
 		unit		= req.POST['unit'].strip().lower()
 		text_title	= req.POST['text_title'].strip().lower()
-		text_author	= req.POST['text_author'].strip()
+		text_author	= req.POST['text_author'].strip().lower()
 		paragraph	= req.POST['paragraph'].strip().lower()
 		# print "Para ", paragraph
 		text_text	= req.POST['text_text'].strip()
@@ -156,4 +159,67 @@ def UpdateText(req, id):
 		except Paragraph.DoesNotExist,e:
 			raise Http404
 		return render_to_response("text_update.html", {"text":para})
+
+
+def SearchText(req):
+	if req.method == "GET":
+		if req.GET['search']:
+			texts = ""
+			if req.GET['choice'] == 'title':
+				mode = 'title'
+				try:
+					unit = Unit.objects.get(text_title__icontains=req.GET['search'].strip().lower())
+				except Unit.DoesNotExist, e:
+					print e
+				else:
+					texts = Paragraph.objects.filter(unit = unit)
+			elif req.GET['choice'] == 'paragraph':
+				mode = 'paragraph'
+				try:
+					texts = Paragraph.objects.filter(para=req.GET['search'].strip().lower())
+				except Paragraph.DoesNotExist, e:
+					print e
+			elif req.GET['choice'] == 'author':
+				mode = 'author'
+				try:
+					unit = Unit.objects.get(text_author__icontains=req.GET['search'].strip().lower())
+				except Unit.DoesNotExist, e:
+					print e
+				else:
+					texts = Paragraph.objects.filter(unit=unit)	
+			return render_to_response("text_search.html", {"texts":texts, 'mode':mode})
+		else:
+			return render_to_response("text_index.html", {"search_error":"Search Something."})
+
+
+def Search(req):
+	if req.method == "GET":
+		search = req.GET.get('search', '')
+		if not search:
+			error = "Cannot Be Empty!"
+			print error
+		else:
+			query = (
+				Unit(text_title__icontains=search) | 
+				Unit(text_author__icontains=search) |
+				Paragraph(para=search)
+				)
+			try:
+				texts = Paragraph.objects.filter(query)
+			except Paragraph.DoesNotExist, e:
+				error = "Find Nothing !!!"
+			else:
+				return render_to_response("search_results.html", {"texts":texts, "mode":"title"})
+
+
+def DeleteParagraph(req, id):
+	try:
+		text = Paragraph.objects.get(id=id)
+	except Paragraph.DoesNotExist, e:
+		errors = e
+		print errors
+	else:
+		text.delete()
+		return HttpResponseRedirect('/text/index')
+
 

@@ -8,17 +8,19 @@
 	</div>
 	-->
 
-	<div>
+<!-- 查单词 -->
+	<div id="word">
 	<form action="/word/search" method="get">
 		<strong>Search Word</strong><br />
 		<input type="text" name="search_word" required="required" placeholder="Please Enter a Word" /><br />
-		<input type="submit" name="submit" values="Search" />
+		<input class="submit" type="submit" name="submit" values="Search" />
 		{% load staticfiles %}
-		<link href="{% static "css/test.css" %}" type="text/css" rel="stylesheet">
+		<olnk href="{% static "css/test.css" %}" type="text/css" rel="stylesheet">
 	</form>
 	</div>
 
-	<div>
+<!-- 查课文 -->
+	<div id="text">
 	<label>
 	<form action="../searchtext" method="get">
 		<strong>Search Text</strong><br/>
@@ -29,26 +31,38 @@
 		<input type="radio" name="choice" value="title" checked="checked"/>Title
 		<input type="radio" name="choice" value="paragraph" />Paragraph
 		<input type="radio" name="choice" value="author" />Author<br />
-		<input type="submit" name="submit" value="Submit" /><br />
+		<input class="submit" type="submit" name="submit" value="Submit" /><br />
 	</form>
 	</label>
 	</div>
 
-	<div>
-	<form action="../updatetext" method="post">
+<!-- 课文 -->
 	{% for text in texts %} 
-		<p>{{text.book.name.title}}</p>
-		<p>{{text.book.author}}</p>
-		<p>{{text.unit.unit.capitalize }}</p>
-		<p>{{text.unit.text_title.title }}</p>
-		<p>{{text.unit.text_author}}</p>
-		<p>{{text.para}} <!-- <a href="../updatetext/{{text.id}}">编辑</a> --></p>
-		<p>{{text.para_text|escape}}</p>
-		<p>{{text.para_translation|escape}}</p>
-		<p>{{text.add_time}}</p>
-		<hr>
-	{% endfor %}
+	<p >
+	<form action="../updatetext" method="post">
+		
+		<div class="column1of3">
+			<ul>
+			<ol>{{text.book.name.title}}</ol>
+			<ol>{{text.book.author}}</ol>
+			<ol>{{text.unit.unit.capitaolze }}</ol>
+			<ol id="title">{{text.unit.text_title.title }}</ol>
+			<ol>{{text.unit.text_author}}</ol>
+			<ol>{{text.para}}&nbsp&nbsp<a href="../updatetext/{{text.id}}">编辑</a> </ol>
+			<ol>{{text.add_time}}</ol>
+			</ul>
+		</div>
+
+		<div class="column2of3">
+			{{text.para_text|escape}}
+		</div>
+
+		<div class="column3of3">
+			{{text.para_translation|escape}}
+		</div>
+
 	</form>
-	</div>
+	</p>
+	{% endfor %}
 
 {% endblock %}

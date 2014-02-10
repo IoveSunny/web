@@ -16,7 +16,14 @@
 {% load staticfiles %}
 <link href="{% static "css/test.css" %}" type="text/css" rel="stylesheet" />
 </head>
-<body>
+<body >
+	<div id="head">
+		<ul>
+			<li><a href="/text/index">主页</a></li>
+			<li><a href="/word/index">课文</a></li>
+			<li><a href="/text/index">翻译</a></li>
+		</ul>
+	</div>
 	{% block body %}
 	{% endblock %}
 </body>

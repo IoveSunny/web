@@ -32,7 +32,7 @@ urlpatterns = patterns('',
 	# Delete
 	url(r'^text/deletetext/(?P<id>\d+)/$', 'text.views.DeleteParagraph'),
 	# Search
-	url(r'^text/searchtext/', 'text.views.Search'),
+	url(r'^text/searchtext/', 'text.views.SearchText'),
 
 	# css
 	url(r'^css/(?P<id>\d+)/$', 'text.views.testcss'),
